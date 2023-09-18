@@ -1,4 +1,4 @@
-package com.example.mycodingchallenge
+package com.example.mycodingchallenge.viewmodel
 
 import android.nfc.tech.MifareUltralight.PAGE_SIZE
 import androidx.lifecycle.ViewModel
@@ -10,6 +10,7 @@ import androidx.paging.cachedIn
 import com.example.mycodingchallenge.data.ApiRepository
 import com.example.mycodingchallenge.data.ChallengesSource
 import com.example.mycodingchallenge.data.response.ChallengeListData
+import com.example.mycodingchallenge.utils.AppConstants
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -22,7 +23,7 @@ class ChallengesViewModel @Inject constructor(
 
 
     fun getAllChallenges(): Flow<PagingData<ChallengeListData>> {
-        return Pager(PagingConfig(PAGE_SIZE)) { challengesSource }.flow.cachedIn(viewModelScope)
+        return Pager(PagingConfig(AppConstants.PAGE_SIZE)) { challengesSource }.flow.cachedIn(viewModelScope)
     }
 
 

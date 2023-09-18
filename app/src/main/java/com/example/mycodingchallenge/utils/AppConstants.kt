@@ -3,6 +3,6 @@ package com.example.mycodingchallenge.utils
 object AppConstants {
 
     const val INTERNET_ERROR = "Make sure you are connected to the internet"
-    private const val PAGE_SIZE = 10
+    const val PAGE_SIZE = 200
 
 }

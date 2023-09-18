@@ -29,7 +29,7 @@ import androidx.compose.ui.unit.sp
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemsIndexed
-import com.example.mycodingchallenge.ChallengesViewModel
+import com.example.mycodingchallenge.viewmodel.ChallengesViewModel
 import com.example.mycodingchallenge.LoadingItem
 import com.example.mycodingchallenge.R
 import com.example.mycodingchallenge.data.response.ChallengeListData
