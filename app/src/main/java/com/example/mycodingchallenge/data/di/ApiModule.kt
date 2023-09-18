@@ -2,6 +2,7 @@ package com.example.mycodingchallenge.data.di
 
 import com.example.mycodingchallenge.data.ApiRepository
 import com.example.mycodingchallenge.data.ApiService
+import com.example.mycodingchallenge.data.ChallengesSource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -28,6 +29,14 @@ object ApiModule {
         apiServiceDI: ApiService
     ): ApiRepository {
         return ApiRepository(apiServiceDI)
+    }
+
+    @Singleton
+    @Provides
+    fun provideChallengesSource(
+        apiRepository: ApiRepository
+    ): ChallengesSource {
+        return ChallengesSource(apiRepository)
     }
 
 }
