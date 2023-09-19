@@ -1,6 +1,7 @@
 package com.example.mycodingchallenge.ui.views
 
 import android.content.Context
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -26,6 +27,7 @@ import com.example.mycodingchallenge.viewmodel.ChallengesViewModel
 import com.example.mycodingchallenge.LoadingItem
 import com.example.mycodingchallenge.R
 import com.example.mycodingchallenge.data.response.ChallengeListData
+import com.example.mycodingchallenge.ui.activities.ChallengeDetailsActivity
 import com.example.mycodingchallenge.utils.ErrorDialog
 
 @Composable
@@ -35,11 +37,13 @@ fun ListingScreen(
 ) {
     Column() {
 
-        HomeAppBar(title = stringResource(id = R.string.app_name),
-            Modifier.height(50.dp))
+        HomeAppBar(
+            title = stringResource(id = R.string.app_name),
+            Modifier.height(50.dp)
+        )
 
-        ChallengeListing(context,challengesViewModel)
-        
+        ChallengeListing(context, challengesViewModel)
+
     }
 }
 
@@ -53,9 +57,9 @@ fun ChallengeListing(
     LazyColumn(modifier = Modifier.padding(5.dp)) {
         itemsIndexed(lazyChallengeItems) { index, item ->
             item?.let {
-                ChallengeItem(challengeItemData = it!!, {
-
-                })
+                ChallengeItem(challengeItemData = it!!) {
+                    context.startActivity(ChallengeDetailsActivity.newIntent(context, it))
+                }
             }
         }
         lazyChallengeItems.apply {
@@ -85,11 +89,13 @@ fun ChallengeListing(
 }
 
 @Composable
-fun ChallengeItem(challengeItemData: ChallengeListData, onClick: (Int) -> Unit) {
+fun ChallengeItem(challengeItemData: ChallengeListData, onClick: (String) -> Unit) {
     Column(
         modifier = Modifier
             .clip(RoundedCornerShape(4.dp))
-            .fillMaxWidth()
+            .fillMaxWidth().clickable {
+                onClick.invoke(challengeItemData.id!!)
+            }
     ) {
         Surface(
             modifier = Modifier.fillMaxWidth(),
@@ -97,7 +103,7 @@ fun ChallengeItem(challengeItemData: ChallengeListData, onClick: (Int) -> Unit) 
             color = Color.White,
 
             ) {
-            (if( challengeItemData.name!= null) challengeItemData.name else "")?.let {
+            (if (challengeItemData.name != null) challengeItemData.name else "")?.let {
                 Text(
                     text = it,
                     fontWeight = FontWeight.Bold,

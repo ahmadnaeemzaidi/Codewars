@@ -9,4 +9,8 @@ class ApiRepository(private  val apiService: ApiService): SafeApiRequest() {
         apiService.getChallenges(pageNumber)
     }
 
+    suspend fun getChallengeDetails(challengeId: String) = apiRequest {
+        apiService.getChallengeDetail(challengeId)
+    }
+
 }
